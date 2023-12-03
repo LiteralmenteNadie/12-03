@@ -1,8 +1,8 @@
 {
-  "name": "11-11",
+  "name": "12-03",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.js",

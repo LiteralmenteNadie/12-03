@@ -8,7 +8,9 @@ const port = 3418;
 
 const http = require("http");
 const server = http.createServer(app);
-server.listen(port);
+server.listen(port, () => {
+        console.log("Escuchando en puerto "+port);
+});
 
 const socketIo = require("socket.io");
 const io = new socketIo.Server(server);
