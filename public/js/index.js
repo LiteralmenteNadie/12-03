@@ -36,7 +36,7 @@ async function cargarProductos(){
 
     let createButton = document.createElement("i");
     createButton.setAttribute("class", "fa-solid fa-plus");
-    createButton.addEventListener('click', () => {
+    createButton.addEventListener('click', async () => {
         let div = document.createElement("div");
         div.className = 'formulario';
 
@@ -45,6 +45,32 @@ async function cargarProductos(){
 
         let inputPrice = document.createElement("input"); // Name, type y id
         div.appendChild(inputPrice);
+
+        let categoriesData = await fetch("/categories");
+        let categories = await categoriesData.json(); 
+        let categoriesSelect = document.createElement("select");
+        categories.forEach((category)=>{
+            let categoryOption = document.createElement("option");
+            categoryOption.value = category.id;
+            categoryOption.innerHTML = category.name;
+            categoriesSelect.appendChild(categoryOption);
+        })
+        div.appendChild(categoriesSelect);
+
+        categoriesSelect.addEventListener("change", () => {
+            console.log(categoriesSelect.value);
+        })
+
+        let brandsData = await fetch("/brands");
+        let brands = await brandsData.json(); 
+        let brandsSelect = document.createElement("select");
+        brands.forEach((brand)=>{
+            let brandOption = document.createElement("option");
+            brandOption.value = brand.id;
+            brandOption.innerHTML = brand.name;
+            brandsSelect.appendChild(brandOption);
+        })
+        div.appendChild(brandsSelect);
 
         let boton = document.createElement("button");
         boton.addEventListener("click", async() => {
@@ -55,7 +81,9 @@ async function cargarProductos(){
                 },
                 body: JSON.stringify({
                     name: inputNombre.value,
-                    price: inputPrice.value
+                    price: inputPrice.value,
+                    category: categoriesSelect.value,
+                    brand: brandsSelect.value,
                 })
             })
             cargarProductos();

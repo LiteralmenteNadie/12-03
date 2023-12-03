@@ -34,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
             // NOT NULL -> allowNull
             // allowNull: false
         },
+        brand_id: {
+            type: DataTypes.INTEGER(10).UNSIGNED,
+            // NOT NULL -> allowNull
+            // allowNull: false
+        }
         
     };
 
@@ -53,6 +58,19 @@ module.exports = (sequelize, DataTypes) => {
             as: 'Category',
             foreignKey: 'category_id'
         })
+
+        Model.belongsTo(models.Brands, {
+            as: 'Brand',
+            foreignKey: 'brand_id'
+        })
+
+        Model.belongsToMany(models.Sizes, {
+            as: "Sizes",
+            foreignKey: "product_id",
+            otherKey: "size_id",
+            through: "products_sizes",
+            timestamps: false
+        })        
     }
 
     return Model;

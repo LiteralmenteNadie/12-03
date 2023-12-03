@@ -1,18 +1,19 @@
-const {Products, Categories} = require('../database/models/index');
+const {Products} = require('../database/models/index');
 
 const service = {
     createProduct: async (data) => {
         let newProduct = {
             name: data.name,
             price: data.price,
-            category_id: data.category
+            category_id: data.category || null,
+            brand_id: data.brand || null
         };
         Products.create(newProduct);
     }, // C
 
     findAll: async () => {
         let prods = await Products.findAll({
-            include: ["Category"]
+            include: ["Category", "Brand", "Sizes"]
         });
         // console.log(prods);
         return prods;

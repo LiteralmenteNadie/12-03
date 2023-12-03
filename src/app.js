@@ -9,7 +9,7 @@ const port = 3418;
 const http = require("http");
 const server = http.createServer(app);
 server.listen(port, () => {
-        console.log("Escuchando en puerto "+port);
+    console.log("Escuchando en puerto "+port);
 });
 
 const socketIo = require("socket.io");
@@ -59,3 +59,15 @@ app.use(static);
 
 const mainRouter = require('./routes/main-router');
 app.use(mainRouter);
+
+const productsRouter = require('./routes/products-router');
+app.use(productsRouter);
+
+const categoriesRouter = require('./routes/categories-router');
+app.use(categoriesRouter);
+
+const sizesRouter = require('./routes/sizes-router');
+app.use(sizesRouter);
+
+const brandsRouter = require('./routes/brands-router');
+app.use(brandsRouter);
